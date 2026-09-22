@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pépinière Bochnakian — Route de la Côte Bleue, Châteauneuf-les-Martigues</title>
+<meta name="description" content="Pépinière Bochnakian : plantes méditerranéennes, arbres fruitiers, poterie, outillage et produits de jardinage à Châteauneuf-les-Martigues (Côte Bleue). Devis, conseils, professionnels et location de plantes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #F6F1E7; font-family: 'Work Sans', sans-serif; color: #2E2B22; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+
+  /* Scroll progress bar */
+  #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, #A8592F, #C97A4E); z-index: 100; transition: width 0.08s linear; }
+
+  /* Header */
+  header#site-header { transition: padding 0.35s ease, box-shadow 0.35s ease, background 0.35s ease; }
+  header#site-header.scrolled { padding-top: 12px !important; padding-bottom: 12px !important; box-shadow: 0 6px 24px rgba(43,42,32,0.08); background: rgba(246,241,231,0.92) !important; backdrop-filter: blur(10px); }
+  .logo-mark { transition: transform 0.4s ease; }
+  a:hover .logo-mark { transform: rotate(-8deg) scale(1.06); }
+
+  /* Nav links animated underline */
+  .nav-link { position: relative; padding-bottom: 4px; }
+  .nav-link::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0%; height: 2px; background: #A8592F; transition: width 0.25s ease; }
+  .nav-link:hover { color: #A8592F; }
+  .nav-link:hover::after { width: 100%; }
+
+  /* Buttons */
+  .btn-primary { transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 14px rgba(168,89,47,0.28); }
+  .btn-primary:hover { background: #8F4A26 !important; transform: translateY(-2px); box-shadow: 0 10px 22px rgba(168,89,47,0.36); }
+  .btn-outline { transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+  .btn-outline:hover { background: #4A5A3A !important; color: #F6F1E7 !important; transform: translateY(-2px); }
+  .btn-light { transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
+  .btn-light:hover { background: #FFFFFF !important; transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,0.18); }
+
+  /* Mobile menu */
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: #2E2B22; border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
+  .mobile-panel { display: none; flex-direction: column; gap: 4px; padding: 8px 24px 22px; background: #F6F1E7; border-bottom: 1px solid rgba(43,42,32,0.1); }
+  .mobile-panel.open { display: flex; }
+  .mobile-panel a { padding: 12px 0; font-size: 15.5px; font-weight: 500; border-bottom: 1px solid rgba(43,42,32,0.06); }
+
+  .card { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 20px 36px rgba(43,42,32,0.16); }
+  .field input, .field textarea { font-family: 'Work Sans', sans-serif; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+  .field input:focus, .field textarea:focus { outline: none; border-color: #4A5A3A !important; box-shadow: 0 0 0 3px rgba(74,90,58,0.15); }
+  .chip { display: inline-flex; align-items: center; padding: 7px 14px; border-radius: 999px; font-size: 13.5px; font-weight: 500; background: rgba(246,241,231,0.85); color: #2E2B22; transition: transform 0.2s ease; }
+  .chip:hover { transform: translateY(-2px); }
+  .chip-dark { background: rgba(74,90,58,0.14); color: #3A4530; }
+
+  .marquee-track { display: flex; width: max-content; animation: scroll-left 32s linear infinite; }
+  .marquee-track:hover { animation-play-state: paused; }
+  @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.revealed { opacity: 1; transform: none; }
+  .stagger-1 { transition-delay: 0.05s; } .stagger-2 { transition-delay: 0.1s; } .stagger-3 { transition-delay: 0.15s; }
+  .stagger-4 { transition-delay: 0.2s; } .stagger-5 { transition-delay: 0.25s; } .stagger-6 { transition-delay: 0.3s; }
+  .stagger-7 { transition-delay: 0.35s; } .stagger-8 { transition-delay: 0.4s; }
+
+  .bento-hero { grid-column: span 2; }
+  .plantes-card-bg { background-image: linear-gradient(190deg, rgba(46,43,34,0.15) 0%, rgba(30,32,20,0.86) 100%), url('images/f837c7828b68d36890cb32b6892e3d32.jpg'); background-size: cover; background-position: center 65%; transition: background-size 0.7s ease; }
+  .plantes-card-bg:hover { background-size: 112%; }
+  .poterie-card-bg { background-image: linear-gradient(200deg, rgba(46,43,34,0.05) 0%, rgba(30,32,20,0.82) 100%), url('images/92612767855b889593f7ba65fd418944.jpg'); background-size: cover; background-position: center; transition: background-size 0.7s ease; }
+  .poterie-card-bg:hover { background-size: 112%; }
+  .fruitiers-card-bg { background-image: linear-gradient(200deg, rgba(46,43,34,0.08) 0%, rgba(30,32,20,0.82) 100%), url('images/7ef4848643ffa45350b5175442fc0641.jpg'); background-size: cover; background-position: center; transition: background-size 0.7s ease; }
+  .fruitiers-card-bg:hover { background-size: 112%; }
+  .graines-card-bg { background-image: linear-gradient(200deg, rgba(46,43,34,0.08) 0%, rgba(30,32,20,0.82) 100%), url('images/703ae9e5f4b1182975ed5d41324aa6c3.jpg'); background-size: cover; background-position: center; transition: background-size 0.7s ease; }
+  .graines-card-bg:hover { background-size: 112%; }
+
+  /* Gallery / hero photo zoom */
+  .img-zoom-wrap { overflow: hidden; display: block; }
+  .img-zoom { transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); display: block; }
+  .img-zoom-wrap:hover .img-zoom { transform: scale(1.07); }
+
+  /* Floating decorative blobs */
+  .float-blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: 0.5; animation: float-y 7s ease-in-out infinite; pointer-events: none; }
+  @keyframes float-y { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
+
+  /* Slider */
+  .slide-photo { height: 480px; }
+  .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; background: rgba(246,241,231,0.92); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 18px rgba(43,42,32,0.18); transition: background 0.2s ease, transform 0.2s ease; }
+  .slider-arrow:hover { background: #F6F1E7; transform: translateY(-50%) scale(1.08); }
+  .slider-dot { border: none; cursor: pointer; transition: all 0.3s ease; padding: 0; }
+  @media (max-width: 900px) { .slide-photo { height: 380px; } }
+  @media (max-width: 560px) { .slide-photo { height: 280px; } .slider-arrow { width: 38px; height: 38px; } }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none !important; }
+    .hamburger { display: flex !important; }
+    .hero-grid { grid-template-columns: 1fr !important; }
+    .hero-address { margin-top: 0 !important; }
+    .hero-float-card { position: static !important; left: auto !important; right: auto !important; bottom: auto !important; margin-top: 16px !important; width: 100% !important; box-sizing: border-box; }
+    .veg-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .bento-hero { grid-column: span 2 !important; }
+    .why-grid { grid-template-columns: 1fr !important; }
+    .access-grid { grid-template-columns: 1fr !important; }
+    .contact-grid { grid-template-columns: 1fr !important; }
+    .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  }
+  @media (max-width: 560px) {
+    .veg-grid { grid-template-columns: 1fr !important; }
+    .bento-hero { grid-column: span 1 !important; }
+    .section-pad { padding-left: 24px !important; padding-right: 24px !important; }
+    .topbar { justify-content: center !important; gap: 14px !important; }
+    .topbar span:nth-child(2) { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<div style="width: 100%; min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F1E7;">
+
+  <!-- BARRE DE CONTACT -->
+  <div style="width: 100%; box-sizing: border-box; background: #2E2B22; color: #F6F1E7; padding: 9px 64px; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; font-size: 12.5px;" class="section-pad topbar">
+    <a href="tel:0442798481" style="display: flex; align-items: center; gap: 7px; color: #F6F1E7; opacity: 0.92;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F6F1E7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      04 42 79 84 81
+    </a>
+    <span style="display: flex; align-items: center; gap: 7px; opacity: 0.92;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F6F1E7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      Route de la Côte Bleue, 13220 Châteauneuf-les-Martigues
+    </span>
+    <span style="display: flex; align-items: center; gap: 7px; opacity: 0.92;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F6F1E7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Lun-Ven 9h-19h · Sam 10h-19h
+    </span>
+  </div>
+
+  <!-- HEADER -->
+  <header id="site-header" style="width: 100%; box-sizing: border-box; padding: 20px 64px; display: flex; align-items: center; justify-content: space-between; background: #F6F1E7; border-bottom: 1px solid rgba(43,42,32,0.1); position: sticky; top: 0; z-index: 10;" class="section-pad">
+    <a href="#accueil" style="display: flex; align-items: center; gap: 12px;">
+      <span class="logo-mark" style="width: 40px; height: 40px; border-radius: 50%; background: #4A5A3A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F6F1E7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C12 7 8 5 4 5c0 5 3 8 8 7Z"/><path d="M12 12c0-5 4-7 8-7 0 5-3 8-8 7Z"/></svg>
+      </span>
+      <span style="font-family: 'Fraunces', serif; font-size: 21px; font-weight: 600; letter-spacing: -0.01em;">Pépinière Bochnakian</span>
+    </a>
+    <nav class="nav-links" style="display: flex; gap: 28px; font-size: 14.5px; font-weight: 500;">
+      <a class="nav-link" href="#saison">Cette saison</a>
+      <a class="nav-link" href="#vegetaux">Nos végétaux</a>
+      <a class="nav-link" href="#professionnels">Professionnels</a>
+      <a class="nav-link" href="#location">Location de plantes</a>
+      <a class="nav-link" href="#acces">Accès</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="#contact" class="btn-primary" style="background: #A8592F; color: #F6F1E7; padding: 11px 22px; border-radius: 999px; font-size: 14px; font-weight: 600;">Demander un devis</a>
+      <button class="hamburger" id="hamburger-btn" aria-label="Ouvrir le menu">
+        <span id="bar-top"></span>
+        <span id="bar-mid"></span>
+        <span id="bar-bot"></span>
+      </button>
+    </div>
+  </header>
+  <div class="mobile-panel" id="mobile-panel">
+    <a href="#saison">Cette saison</a>
+    <a href="#vegetaux">Nos végétaux</a>
+    <a href="#professionnels">Professionnels</a>
+    <a href="#location">Location de plantes</a>
+    <a href="#apropos">À propos</a>
+    <a href="#acces">Accès</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- MARQUEE -->
+  <div style="width: 100%; overflow: hidden; background: #2E2B22; padding: 13px 0;">
+    <div class="marquee-track">
+      <div style="display: flex; align-items: center; gap: 40px; padding-right: 40px;">
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Plantes méditerranéennes</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Oliviers</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Poterie</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Outillage de jardin</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Produits phytosanitaires</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Graines &amp; semences</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Terres &amp; terreaux</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Location de plantes</span>
+        <span style="color: #A8592F;">✦</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 40px; padding-right: 40px;">
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Plantes méditerranéennes</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Oliviers</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Poterie</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Outillage de jardin</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Produits phytosanitaires</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Graines &amp; semences</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Terres &amp; terreaux</span>
+        <span style="color: #A8592F;">✦</span>
+        <span style="color: #F6F1E7; font-size: 13.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;">Location de plantes</span>
+        <span style="color: #A8592F;">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="accueil" style="width: 100%; box-sizing: border-box; padding: 72px 64px 0; background: #EFE8D8;" class="section-pad">
+    <div class="hero-grid" style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; max-width: 1280px; margin: 0 auto;">
+      <div>
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(74,90,58,0.12); color: #4A5A3A; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 24px;">CÔTE BLEUE · CHÂTEAUNEUF-LES-MARTIGUES</div>
+        <h1 style="font-family: 'Fraunces', serif; font-size: 58px; line-height: 1.03; font-weight: 600; margin: 0 0 22px; letter-spacing: -0.01em;">Tout pour votre jardin, cultivé au cœur de la Côte Bleue</h1>
+        <p style="font-size: 18px; line-height: 1.6; color: #4A4636; max-width: 520px; margin: 0 0 32px;">Plantes méditerranéennes, arbres fruitiers, poterie, outillage et produits de jardinage. Conseils personnalisés et accompagnement de A à Z.</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px;">
+          <a href="#contact" class="btn-primary" style="background: #A8592F; color: #F6F1E7; padding: 15px 28px; border-radius: 999px; font-size: 15px; font-weight: 600;">Demander un devis</a>
+          <a href="#vegetaux" class="btn-outline" style="border: 1.5px solid #4A5A3A; color: #4A5A3A; padding: 15px 28px; border-radius: 999px; font-size: 15px; font-weight: 600;">Découvrir le catalogue</a>
+        </div>
+      </div>
+      <div style="position: relative;" class="hero-address">
+        <div class="float-blob" style="width: 90px; height: 90px; background: #A8592F; top: -30px; right: 10%; animation-delay: 0.5s;"></div>
+        <div class="float-blob" style="width: 50px; height: 50px; background: #4A5A3A; bottom: 10%; left: -20px; animation-delay: 1.5s;"></div>
+        <div class="img-zoom-wrap" style="border-radius: 24px;">
+          <img class="img-zoom" src="images/5da2a8cf740c7823c293b4d773f048ac.jpg" alt="Olivier centenaire et poterie à la pépinière Bochnakian" style="width: 100%; height: 420px; object-fit: cover; border-radius: 24px;">
+        </div>
+        <div class="hero-float-card" style="position: absolute; left: -24px; right: 24px; bottom: -32px; background: #4A5A3A; border-radius: 18px; padding: 26px 28px; color: #F6F1E7; display: flex; gap: 28px; box-shadow: 0 20px 40px rgba(43,42,32,0.22);">
+          <div style="flex: 1;">
+            <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; margin-bottom: 6px;">Adresse</div>
+            <div style="font-size: 15.5px; font-family: 'Fraunces', serif; line-height: 1.4;">Route de la Côte Bleue<br>13220 Châteauneuf</div>
+          </div>
+          <div style="width: 1px; background: rgba(246,241,231,0.2);"></div>
+          <div style="flex: 1;">
+            <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; margin-bottom: 6px;">Horaires</div>
+            <div style="font-size: 13.5px; line-height: 1.6; opacity: 0.92;">Lun-Ven 9h-19h<br>Sam 10h-19h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height: 96px;"></div>
+  </section>
+
+  <!-- CETTE SAISON (compact, après la présentation) -->
+  <section id="saison" style="width: 100%; box-sizing: border-box; padding: 34px 64px; background: #4A5A3A; color: #F6F1E7; position: relative; overflow: hidden;" class="section-pad">
+    <div class="float-blob" style="width: 80px; height: 80px; background: #A8592F; top: -30px; right: 8%; opacity: 0.18; animation-delay: 0.3s;"></div>
+    <div style="max-width: 1280px; margin: 0 auto; position: relative;">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 18px;" class="reveal">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <span id="season-badge" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(246,241,231,0.14); padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;"></span>
+          <h2 style="font-family: 'Fraunces', serif; font-size: 21px; font-weight: 600; margin: 0;">Ce qu'il faut planter en ce moment</h2>
+        </div>
+        <p id="season-intro" style="font-size: 13px; opacity: 0.78; margin: 0; max-width: 400px;"></p>
+      </div>
+      <div class="why-grid" id="season-items" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;"></div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="apropos" style="width: 100%; box-sizing: border-box; padding: 96px 64px;" class="section-pad">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: start;" class="access-grid">
+      <div>
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A8592F; margin-bottom: 14px;">Notre pépinière</div>
+        <h2 style="font-family: 'Fraunces', serif; font-size: 38px; font-weight: 600; line-height: 1.15; margin: 0;">Un savoir-faire horticole transmis avec passion</h2>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px; font-size: 16.5px; line-height: 1.75; color: #4A4636;">
+        <p style="margin: 0;">Installée route de la Côte Bleue à Châteauneuf-les-Martigues, la pépinière Bochnakian cultive et sélectionne des végétaux adaptés au climat méditerranéen — oliviers, arbustes, plantes fleuries et arbres fruitiers — aux côtés d'un large choix de poterie, d'outillage et de fournitures de jardinage.</p>
+        <p style="margin: 0; font-style: italic; color: #6B6650;">[Espace réservé : racontez ici depuis quand la pépinière existe, ce qui vous a donné le goût de ce métier, et ce qui fait la différence dans votre façon de cultiver.]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOS VÉGÉTAUX -->
+  <section id="vegetaux" style="width: 100%; box-sizing: border-box; padding: 96px 64px; background: #EFE8D8;" class="section-pad">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 640px; margin: 0 auto 56px;" class="reveal">
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A8592F; margin-bottom: 14px;">Catalogue</div>
+        <h2 style="font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; margin: 0 0 14px;">Tout ce qu'il faut pour votre jardin</h2>
+        <p style="font-size: 16px; color: #4A4636; margin: 0;">Une large gamme de végétaux et de fournitures, en un seul endroit.</p>
+      </div>
+      <div class="veg-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(180px, auto); gap: 20px;">
+
+        <div class="card bento-hero reveal stagger-1 plantes-card-bg" style="grid-row: span 2; border-radius: 18px; padding: 34px; color: #F6F1E7; display: flex; flex-direction: column; justify-content: space-between; gap: 24px;">
+          <div>
+            <h3 style="font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; margin: 0 0 10px;">Plantes — large variété</h3>
+            <p style="font-size: 15px; opacity: 0.88; line-height: 1.6; margin: 0 0 20px;">Oliviers, arbustes, fleuries, aromatiques, fruitiers et bien plus, sélectionnés pour le climat méditerranéen.</p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="chip">Oliviers</span>
+            <span class="chip">Lauriers</span>
+            <span class="chip">Lavandes</span>
+            <span class="chip">Agapanthes</span>
+            <span class="chip">Bougainvillées</span>
+            <span class="chip">Citronniers</span>
+            <span class="chip">Romarin</span>
+            <span class="chip">Palmiers</span>
+            <span class="chip">Vivaces</span>
+            <span class="chip">…</span>
+          </div>
+        </div>
+
+        <div class="card reveal stagger-2 fruitiers-card-bg" style="border-radius: 18px; padding: 28px; display: flex; flex-direction: column; justify-content: flex-end; color: #F6F1E7;">
+          <div>
+            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin: 0 0 6px;">Arbres fruitiers</h3>
+            <p style="font-size: 13.5px; opacity: 0.9; line-height: 1.55; margin: 0;">Agrumes, fruitiers à noyau et à pépins de saison.</p>
+          </div>
+        </div>
+
+        <div class="card reveal stagger-3 poterie-card-bg" style="border-radius: 18px; padding: 28px; display: flex; flex-direction: column; justify-content: flex-end; color: #F6F1E7;">
+          <div>
+            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin: 0 0 6px;">Poterie &amp; contenants</h3>
+            <p style="font-size: 13.5px; opacity: 0.9; line-height: 1.55; margin: 0;">Pots en terre cuite, jardinières et bacs de toutes tailles.</p>
+          </div>
+        </div>
+
+        <div class="card reveal stagger-4" style="background: #F6F1E7; border-radius: 18px; padding: 28px; grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="width: 46px; height: 46px; border-radius: 11px; background: rgba(74,90,58,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M14.7 6.3a1 1 0 0 0 0-1.4l-1.6-1.6a1 1 0 0 0-1.4 0L3 12v4h4l8.7-8.7Z"/><path d="M3 21h18"/></svg>
+          </div>
+          <div>
+            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin: 0 0 6px;">Outillage de jardin</h3>
+            <p style="font-size: 13.5px; color: #4A4636; line-height: 1.55; margin: 0 0 14px;">Bêches, sécateurs, arrosoirs et petit matériel du jardinier.</p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <span class="chip chip-dark" style="font-size: 12px; padding: 5px 11px;">Sécateurs</span>
+            <span class="chip chip-dark" style="font-size: 12px; padding: 5px 11px;">Bêches</span>
+            <span class="chip chip-dark" style="font-size: 12px; padding: 5px 11px;">Arrosoirs</span>
+          </div>
+        </div>
+
+        <div class="card reveal stagger-5" style="background: #F6F1E7; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="width: 46px; height: 46px; border-radius: 11px; background: rgba(74,90,58,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M12 2C9 6 6 9 6 13a6 6 0 0 0 12 0c0-4-3-7-6-11Z"/></svg>
+          </div>
+          <div>
+            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin: 0 0 6px;">Produits phytosanitaires</h3>
+            <p style="font-size: 13.5px; color: #4A4636; line-height: 1.55; margin: 0;">Traitements et solutions pour protéger vos plantations.</p>
+          </div>
+        </div>
+
+        <div class="card reveal stagger-6 graines-card-bg" style="border-radius: 18px; padding: 28px; display: flex; flex-direction: column; justify-content: flex-end; color: #F6F1E7;">
+          <div>
+            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin: 0 0 6px;">Graines &amp; semences</h3>
+            <p style="font-size: 13.5px; opacity: 0.9; line-height: 1.55; margin: 0;">Potagères, florales et gazon, pour toutes les saisons.</p>
+          </div>
+        </div>
+
+        <div class="card reveal stagger-7" style="background: #F6F1E7; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="width: 46px; height: 46px; border-radius: 11px; background: rgba(74,90,58,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M3 20h18"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/></svg>
+          </div>
+          <div>
+            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin: 0 0 6px;">Terres &amp; terreaux</h3>
+            <p style="font-size: 13.5px; color: #4A4636; line-height: 1.55; margin: 0;">Terreaux, paillage, amendements et supports de culture.</p>
+          </div>
+        </div>
+
+        <div class="card reveal stagger-8" style="background: #F6F1E7; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="width: 46px; height: 46px; border-radius: 11px; background: rgba(74,90,58,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M3 3h18v18H3z"/><path d="M9 3v18M3 9h18"/></svg>
+          </div>
+          <div>
+            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin: 0 0 6px;">Décoration &amp; accessoires</h3>
+            <p style="font-size: 13.5px; color: #4A4636; line-height: 1.55; margin: 0;">Objets et accessoires pour habiller votre extérieur.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section id="galerie" style="width: 100%; box-sizing: border-box; padding: 96px 64px;" class="section-pad">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 560px; margin: 0 auto 48px;" class="reveal">
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A8592F; margin-bottom: 14px;">En images</div>
+        <h2 style="font-family: 'Fraunces', serif; font-size: 38px; font-weight: 600; margin: 0;">La pépinière en photos</h2>
+      </div>
+      <div class="reveal" id="slider-wrap" style="position: relative; border-radius: 20px; overflow: hidden;">
+        <div id="slider-track" style="display: flex; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);"></div>
+        <button type="button" class="slider-arrow" id="slider-prev" aria-label="Photo précédente" style="left: 16px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E2B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="slider-arrow" id="slider-next" aria-label="Photo suivante" style="right: 16px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E2B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <div id="slider-dots" style="display: flex; justify-content: center; gap: 8px; margin-top: 22px;"></div>
+    </div>
+  </section>
+
+  <!-- PROFESSIONNELS -->
+  <section id="professionnels" style="width: 100%; box-sizing: border-box; padding: 96px 64px;" class="section-pad">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: center;" class="access-grid reveal">
+      <div>
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A8592F; margin-bottom: 14px;">Espace professionnels</div>
+        <h2 style="font-family: 'Fraunces', serif; font-size: 38px; font-weight: 600; line-height: 1.15; margin: 0 0 20px;">Paysagistes, collectivités &amp; entreprises</h2>
+        <p style="font-size: 16.5px; line-height: 1.75; color: #4A4636; margin: 0;">Un interlocuteur dédié pour vos chantiers d'aménagement paysager, vos marchés publics ou vos approvisionnements réguliers.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;" class="why-grid">
+        <div style="background: #EFE8D8; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+          <div style="font-weight: 600; font-size: 15.5px;">Devis groupés &amp; tarifs pro</div>
+        </div>
+        <div style="background: #EFE8D8; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M3 3h13v13H3zM16 8h5l0 8h-5z"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="17.5" cy="18.5" r="1.5"/></svg>
+          <div style="font-weight: 600; font-size: 15.5px;">Livraison sur chantier</div>
+        </div>
+        <div style="background: #EFE8D8; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div style="font-weight: 600; font-size: 15.5px;">Partenariat paysagistes &amp; collectivités</div>
+        </div>
+        <div style="background: #EFE8D8; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>
+          <div style="font-weight: 600; font-size: 15.5px;">Facturation entreprise</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION DE PLANTES -->
+  <section id="location" style="width: 100%; box-sizing: border-box; padding: 96px 64px; background: #EFE8D8;" class="section-pad">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center;" class="access-grid reveal">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;" class="why-grid">
+        <div style="background: #F6F1E7; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M4 21h16M9 21V9a3 3 0 0 1 6 0v12"/><path d="M12 9V3"/></svg>
+          <div style="font-weight: 600; font-size: 15.5px;">Évènements &amp; réceptions</div>
+        </div>
+        <div style="background: #F6F1E7; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+          <div style="font-weight: 600; font-size: 15.5px;">Décoration bureaux &amp; commerces</div>
+        </div>
+        <div style="background: #F6F1E7; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/></svg>
+          <div style="font-weight: 600; font-size: 15.5px;">Entretien inclus</div>
+        </div>
+        <div style="background: #F6F1E7; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A5A3A" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <div style="font-weight: 600; font-size: 15.5px;">Courte ou longue durée</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A8592F; margin-bottom: 14px;">Nouveau</div>
+        <h2 style="font-family: 'Fraunces', serif; font-size: 38px; font-weight: 600; line-height: 1.15; margin: 0 0 20px;">La pépinière fait aussi de la location de plantes</h2>
+        <p style="font-size: 16.5px; line-height: 1.75; color: #4A4636; margin: 0 0 28px;">Habillez vos évènements, bureaux et commerces avec des plantes en location, entretenues et livrées par nos soins, pour une durée courte ou longue.</p>
+        <a href="#contact" class="btn-primary" style="display: inline-block; background: #A8592F; color: #F6F1E7; padding: 14px 26px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Demander un devis location</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- POURQUOI NOUS -->
+  <section style="width: 100%; box-sizing: border-box; padding: 96px 64px;" class="section-pad">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 620px; margin: 0 auto 56px;" class="reveal">
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A8592F; margin-bottom: 14px;">Pourquoi nous choisir</div>
+        <h2 style="font-family: 'Fraunces', serif; font-size: 38px; font-weight: 600; margin: 0;">Un accompagnement sur mesure</h2>
+      </div>
+      <div class="why-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+        <div class="reveal stagger-1" style="padding: 8px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: #4A5A3A; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F6F1E7" stroke-width="1.7"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h3 style="font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 0 0 10px;">Conseil personnalisé</h3>
+          <p style="font-size: 15px; color: #4A4636; line-height: 1.65; margin: 0;">Une équipe à l'écoute pour choisir les végétaux adaptés à votre terrain et votre climat.</p>
+        </div>
+        <div class="reveal stagger-3" style="padding: 8px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: #4A5A3A; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F6F1E7" stroke-width="1.7"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 style="font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 0 0 10px;">Production locale</h3>
+          <p style="font-size: 15px; color: #4A4636; line-height: 1.65; margin: 0;">Des végétaux acclimatés à la Côte Bleue, sélectionnés pour leur qualité et leur résistance.</p>
+        </div>
+        <div class="reveal stagger-5" style="padding: 8px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: #4A5A3A; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F6F1E7" stroke-width="1.7"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/></svg>
+          </div>
+          <h3 style="font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 0 0 10px;">Qualité garantie</h3>
+          <p style="font-size: 15px; color: #4A4636; line-height: 1.65; margin: 0;">Un suivi rigoureux de la culture à la livraison, pour des plantations qui durent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVIS GOOGLE -->
+  <section id="avis" style="width: 100%; box-sizing: border-box; padding: 88px 64px; background: #EFE8D8;" class="section-pad">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 620px; margin: 0 auto 48px;" class="reveal">
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A8592F; margin-bottom: 14px;">Avis clients</div>
+        <h2 style="font-family: 'Fraunces', serif; font-size: 36px; font-weight: 600; margin: 0 0 18px;">Ce qu'en disent nos clients</h2>
+        <div style="display: inline-flex; align-items: center; gap: 10px; background: #FFFFFF; padding: 10px 20px; border-radius: 999px; box-shadow: 0 6px 18px rgba(43,42,32,0.08);">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.07 5.07 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.26 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.85A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.09A6.6 6.6 0 0 1 5.5 12c0-.73.12-1.43.34-2.09V7.06H2.18A11 11 0 0 0 1 12c0 1.78.43 3.46 1.18 4.94l3.66-2.85z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.85C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+          <span style="font-family: 'Fraunces', serif; font-weight: 600; font-size: 17px; color: #2E2B22;">4,6/5</span>
+          <span style="color: #A8592F; letter-spacing: 1px; font-size: 13px;">★★★★★</span>
+          <span style="font-size: 13.5px; color: #6B6650;">· 84 avis Google</span>
+        </div>
+      </div>
+      <div class="why-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+        <div class="card reveal stagger-1" style="background: #FFFFFF; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px;">
+          <span style="color: #A8592F; letter-spacing: 2px; font-size: 14px;">★★★★★</span>
+          <p style="font-size: 14.5px; color: #4A4636; line-height: 1.65; margin: 0; flex-grow: 1;">« Un large choix à des prix très abordables, une ambiance chaleureuse et accueillante, je recommande vivement. »</p>
+          <div style="font-size: 13px; font-weight: 600; color: #2E2B22;">Avis Google</div>
+        </div>
+        <div class="card reveal stagger-2" style="background: #FFFFFF; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px;">
+          <span style="color: #A8592F; letter-spacing: 2px; font-size: 14px;">★★★★★</span>
+          <p style="font-size: 14.5px; color: #4A4636; line-height: 1.65; margin: 0; flex-grow: 1;">« J'y ai trouvé des produits de qualité, de belles plantes et de bons conseils. Je recommande sans hésiter, j'y retournerai. »</p>
+          <div style="font-size: 13px; font-weight: 600; color: #2E2B22;">Avis Google</div>
+        </div>
+        <div class="card reveal stagger-3" style="background: #FFFFFF; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px;">
+          <span style="color: #A8592F; letter-spacing: 2px; font-size: 14px;">★★★★★</span>
+          <p style="font-size: 14.5px; color: #4A4636; line-height: 1.65; margin: 0; flex-grow: 1;">« Un endroit génial et superbe pour acheter des plantes. »</p>
+          <div style="font-size: 13px; font-weight: 600; color: #2E2B22;">Avis Google</div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 36px;" class="reveal">
+        <a href="https://www.google.com/maps/place/?q=place_id:ChIJMV5oAZ3nyRIRl6vKsQ8SR_U" target="_blank" rel="noopener" class="btn-outline" style="display: inline-block; border: 1.5px solid #4A5A3A; color: #4A5A3A; padding: 14px 28px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Voir tous les avis sur Google</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCÈS -->
+  <section id="acces" style="width: 100%; box-sizing: border-box; padding: 96px 64px; background: #4A5A3A; color: #F6F1E7;" class="section-pad">
+    <div class="access-grid reveal" style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
+      <div>
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #D9A77B; margin-bottom: 14px;">Nous rendre visite</div>
+        <h2 style="font-family: 'Fraunces', serif; font-size: 36px; font-weight: 600; margin: 0 0 28px;">Accès &amp; horaires</h2>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D9A77B" stroke-width="1.6" style="flex-shrink: 0; margin-top: 2px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">Adresse</div>
+              <div style="opacity: 0.9; line-height: 1.6;">Route de la Côte Bleue, 13220 Châteauneuf-les-Martigues</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D9A77B" stroke-width="1.6" style="flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">Horaires d'ouverture</div>
+              <div style="opacity: 0.9; line-height: 1.6;">Lundi - Vendredi : 9h - 19h<br>Samedi : 10h - 19h<br>Dimanche : fermé</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D9A77B" stroke-width="1.6" style="flex-shrink: 0; margin-top: 2px;"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 3a2 2 0 0 1-.5 2L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2-.5c1 .3 2 .5 3 .6a2 2 0 0 1 1.7 2Z"/></svg>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">Téléphone</div>
+              <div style="opacity: 0.9; line-height: 1.6;"><a href="tel:0442798481" style="text-decoration: underline;">04 42 79 84 81</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="border-radius: 16px; overflow: hidden; border: 1px solid rgba(246,241,231,0.25); height: 320px;">
+        <iframe
+          title="Localisation de la Pépinière Bochnakian"
+          src="https://www.google.com/maps?q=Route+de+la+C%C3%B4te+Bleue,+13220+Ch%C3%A2teauneuf-les-Martigues&output=embed"
+          style="width: 100%; height: 100%; border: 0;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / DEVIS -->
+  <section id="contact" style="width: 100%; box-sizing: border-box; padding: 96px 64px;" class="section-pad">
+    <div class="contact-grid" style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px;">
+      <div style="text-align: center; max-width: 560px; margin: 0 auto;">
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A8592F; margin-bottom: 14px;">Devis</div>
+        <h2 style="font-family: 'Fraunces', serif; font-size: 38px; font-weight: 600; margin: 0 0 14px;">Demander un devis</h2>
+        <p style="font-size: 16px; color: #4A4636; margin: 0;">Décrivez votre projet, nous revenons vers vous rapidement.</p>
+      </div>
+      <form style="background: #EFE8D8; border-radius: 20px; padding: 48px; display: flex; flex-direction: column; gap: 22px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;" class="contact-grid">
+          <div class="field" style="display: flex; flex-direction: column; gap: 8px;">
+            <label for="nom" style="font-size: 14px; font-weight: 600;">Nom complet</label>
+            <input id="nom" name="nom" type="text" placeholder="Votre nom" style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F6F1E7; font-size: 15px;">
+          </div>
+          <div class="field" style="display: flex; flex-direction: column; gap: 8px;">
+            <label for="email" style="font-size: 14px; font-weight: 600;">E-mail</label>
+            <input id="email" name="email" type="email" placeholder="vous@exemple.fr" style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F6F1E7; font-size: 15px;">
+          </div>
+        </div>
+        <div class="field" style="display: flex; flex-direction: column; gap: 8px;">
+          <label for="tel" style="font-size: 14px; font-weight: 600;">Téléphone</label>
+          <input id="tel" name="tel" type="tel" placeholder="06 12 34 56 78" style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F6F1E7; font-size: 15px;">
+        </div>
+        <div class="field" style="display: flex; flex-direction: column; gap: 8px;">
+          <label for="message" style="font-size: 14px; font-weight: 600;">Votre projet</label>
+          <textarea id="message" name="message" rows="4" placeholder="Décrivez votre projet (type de végétaux, surface, délai...)" style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F6F1E7; font-size: 15px; font-family: inherit; resize: vertical;"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="align-self: flex-start; background: #A8592F; color: #F6F1E7; padding: 15px 32px; border: none; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit;">Envoyer ma demande</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="width: 100%; box-sizing: border-box; padding: 56px 64px 40px; background: #2E2B22; color: #F6F1E7;" class="section-pad">
+    <div class="footer-grid" style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <span style="width: 34px; height: 34px; border-radius: 50%; background: #4A5A3A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F6F1E7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C12 7 8 5 4 5c0 5 3 8 8 7Z"/><path d="M12 12c0-5 4-7 8-7 0 5-3 8-8 7Z"/></svg>
+          </span>
+          <span style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600;">Pépinière Bochnakian</span>
+        </div>
+        <p style="font-size: 14px; opacity: 0.7; line-height: 1.6; max-width: 340px; margin: 0;">Végétaux méditerranéens et conseil horticole sur la Côte Bleue.</p>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.6; margin-bottom: 16px;">Navigation</div>
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px;">
+          <a href="#saison" style="opacity: 0.85;">Cette saison</a>
+          <a href="#vegetaux" style="opacity: 0.85;">Nos végétaux</a>
+          <a href="#professionnels" style="opacity: 0.85;">Professionnels</a>
+          <a href="#location" style="opacity: 0.85;">Location de plantes</a>
+          <a href="#apropos" style="opacity: 0.85;">À propos</a>
+          <a href="#acces" style="opacity: 0.85;">Accès</a>
+          <a href="#contact" style="opacity: 0.85;">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.6; margin-bottom: 16px;">Contact</div>
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; opacity: 0.85; line-height: 1.5;">
+          <span>Route de la Côte Bleue<br>13220 Châteauneuf-les-Martigues</span>
+          <span><a href="tel:0442798481" style="opacity: 1;">04 42 79 84 81</a></span>
+          <span>[Email à préciser]</span>
+        </div>
+      </div>
+    </div>
+    <div style="max-width: 1280px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(246,241,231,0.15); font-size: 13px; opacity: 0.55;">
+      © 2026 Pépinière Bochnakian. Tous droits réservés.
+    </div>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
