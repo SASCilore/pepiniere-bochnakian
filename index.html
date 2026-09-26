@@ -640,7 +640,7 @@
       <div style="border-radius: 16px; overflow: hidden; border: 1px solid rgba(246,241,231,0.25); height: 320px;">
         <iframe
           title="Localisation de la Pépinière Bochnakian"
-          src="https://www.google.com/maps?q=Route+de+la+C%C3%B4te+Bleue,+13220+Ch%C3%A2teauneuf-les-Martigues&output=embed"
+          src="https://www.google.com/maps?q=place_id:ChIJMV5oAZ3nyRIRl6vKsQ8SR_U&output=embed"
           style="width: 100%; height: 100%; border: 0;"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
@@ -657,15 +657,20 @@
         <h2 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 38px; font-weight: 600; margin: 0 0 14px;">Demander un devis</h2>
         <p style="font-size: 16px; color: #3A3A32; margin: 0;">Décrivez votre projet, nous revenons vers vous rapidement.</p>
       </div>
-      <form style="background: #ECE7DA; border-radius: 20px; padding: 48px; display: flex; flex-direction: column; gap: 22px;">
+      <form id="contact-form" style="background: #ECE7DA; border-radius: 20px; padding: 48px; display: flex; flex-direction: column; gap: 22px;">
+        <!-- Clé Web3Forms : remplacer VOTRE_CLE_WEB3FORMS par la clé reçue par email depuis web3forms.com -->
+        <input type="hidden" name="access_key" value="VOTRE_CLE_WEB3FORMS">
+        <input type="hidden" name="subject" value="Nouvelle demande de devis — Pépinière Bochnakian">
+        <input type="hidden" name="from_name" value="Site pepinieres-bochnakian.fr">
+        <input type="checkbox" name="botcheck" style="display:none;">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;" class="contact-grid">
           <div class="field" style="display: flex; flex-direction: column; gap: 8px;">
             <label for="nom" style="font-size: 14px; font-weight: 600;">Nom complet</label>
-            <input id="nom" name="nom" type="text" placeholder="Votre nom" style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F3F0E8; font-size: 15px;">
+            <input id="nom" name="name" type="text" placeholder="Votre nom" required style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F3F0E8; font-size: 15px;">
           </div>
           <div class="field" style="display: flex; flex-direction: column; gap: 8px;">
             <label for="email" style="font-size: 14px; font-weight: 600;">E-mail</label>
-            <input id="email" name="email" type="email" placeholder="vous@exemple.fr" style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F3F0E8; font-size: 15px;">
+            <input id="email" name="email" type="email" placeholder="vous@exemple.fr" required style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F3F0E8; font-size: 15px;">
           </div>
         </div>
         <div class="field" style="display: flex; flex-direction: column; gap: 8px;">
@@ -674,9 +679,10 @@
         </div>
         <div class="field" style="display: flex; flex-direction: column; gap: 8px;">
           <label for="message" style="font-size: 14px; font-weight: 600;">Votre projet</label>
-          <textarea id="message" name="message" rows="4" placeholder="Décrivez votre projet (type de végétaux, surface, délai...)" style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F3F0E8; font-size: 15px; font-family: inherit; resize: vertical;"></textarea>
+          <textarea id="message" name="message" rows="4" placeholder="Décrivez votre projet (type de végétaux, surface, délai...)" required style="padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(43,42,32,0.18); background: #F3F0E8; font-size: 15px; font-family: inherit; resize: vertical;"></textarea>
         </div>
-        <button type="submit" class="btn-primary" style="align-self: flex-start; background: #E24C1F; color: #F3F0E8; padding: 15px 32px; border: none; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit;">Envoyer ma demande</button>
+        <button type="submit" id="contact-submit" class="btn-primary" style="align-self: flex-start; background: #E24C1F; color: #F3F0E8; padding: 15px 32px; border: none; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit;">Envoyer ma demande</button>
+        <p id="contact-status" style="margin: 0; font-size: 14px; display: none;"></p>
       </form>
     </div>
   </section>
