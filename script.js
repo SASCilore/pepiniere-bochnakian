@@ -278,10 +278,58 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
 
   /* ---------- Contact form ----------
-     The source design has no backend wiring beyond a plain <form> with a
-     submit button — there is no fetch/AJAX call in the DCLogic component to
-     replicate. Left as a normal HTML form; wire it up to a real form
-     endpoint (e.g. Formspree, Netlify Forms, or a custom backend) when one
-     is available. */
+     Sends the form to Web3Forms (https://web3forms.com) via fetch, without
+     a page reload. Requires a real access_key in index.html's hidden
+     "access_key" input (get one free at web3forms.com — no signup, just an
+     email confirmation). Shows a success or error message under the button. */
+  (function () {
+    var form = document.getElementById('contact-form');
+    var statusEl = document.getElementById('contact-status');
+    var submitBtn = document.getElementById('contact-submit');
+    if (!form || !statusEl || !submitBtn) return;
+
+    function showStatus(message, isError) {
+      statusEl.textContent = message;
+      statusEl.style.display = 'block';
+      statusEl.style.color = isError ? '#B23815' : '#354516';
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var accessKey = form.querySelector('input[name="access_key"]').value;
+      if (!accessKey || accessKey === 'VOTRE_CLE_WEB3FORMS') {
+        showStatus("Le formulaire n'est pas encore activé (clé Web3Forms manquante). Contactez-nous par téléphone ou email en attendant.", true);
+        return;
+      }
+
+      var originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours…';
+      statusEl.style.display = 'none';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.success) {
+            showStatus('Merci ! Votre demande a bien été envoyée, nous revenons vers vous rapidement.', false);
+            form.reset();
+          } else {
+            showStatus("Une erreur est survenue lors de l'envoi. Merci de nous contacter par téléphone.", true);
+          }
+        })
+        .catch(function () {
+          showStatus("Une erreur est survenue lors de l'envoi. Merci de nous contacter par téléphone.", true);
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        });
+    });
+  })();
 
 });
